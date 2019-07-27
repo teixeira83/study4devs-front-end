@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HTTP } from '@ionic-native/http/ngx';
+import { Observable } from 'rxjs';
+import { ApiProvider } from '../../../providers/api/api';
 
 @Component({
   selector: 'app-login',
@@ -11,20 +12,16 @@ export class LoginPage {
   login: String
   password: String
 
-  constructor(private http: HTTP) { }
+  constructor(public apiProvider: ApiProvider) { }
   
   getLogin(){
-   
-    
-    let params = {
-      login: this.login,
-      password: this.password
-    };
-     
-
-    // this.http.get('http://localhost:8080/student/login', params, "" )
-    // .then( data => {
-    //   console.log(data)
-    // });
+    if(this.login == null || this.password == null){
+      alert('TA EM BRANCO')
+    }else{
+      this.apiProvider.getLogin(this.login,this.password)
+        .subscribe( data => {
+        console.log(data)
+      })
+    }
   }
 }

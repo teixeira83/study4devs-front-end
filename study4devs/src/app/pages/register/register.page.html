@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-input placeholder="Name" [(ngModel)]="name" type="text"></ion-input>
+  <ion-input placeholder="Username" [(ngModel)]="login" type="text"></ion-input>
+  <ion-input placeholder="E-mail" [(ngModel)]="email" type="text"></ion-input>
+  <ion-input placeholder="Confirm E-mail" [(ngModel)]="confirmEmail" type="text"></ion-input>
+  <ion-input placeholder="Password" [(ngModel)]="password" type="password"></ion-input>
+  <ion-input placeholder="Confirm Password" [(ngModel)]="confirmPassword" type="password"></ion-input>
+  <ion-button shape="round" fill="outline" (click)="registerStudent()">Registrar</ion-button>
+</ion-content>
