@@ -1,0 +1,7 @@
+{
+  "name": "study4devs",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
