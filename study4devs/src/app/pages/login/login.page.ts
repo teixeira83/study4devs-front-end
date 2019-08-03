@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ApiProvider } from '../../../providers/api/api';
+import { Student } from '../../../models/Student/Student';
 
 @Component({
   selector: 'app-login',
@@ -9,19 +9,18 @@ import { ApiProvider } from '../../../providers/api/api';
 })
 export class LoginPage {
 
-  login: String
-  password: String
+  login: string
+  password: string
+  student: Student
 
-  constructor(public apiProvider: ApiProvider) { }
+  constructor(public apiProvider: ApiProvider){}
   
   getLogin(){
     if(this.login == null || this.password == null){
       alert('TA EM BRANCO')
     }else{
-      this.apiProvider.getLogin(this.login,this.password)
-        .subscribe( data => {
-        console.log(data)
-      })
+      this.student = new Student()
+      this.student = this.apiProvider.getLogin(this.login,this.password)
     }
   }
 }
