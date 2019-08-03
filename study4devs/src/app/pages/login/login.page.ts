@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiProvider } from '../../../providers/api/api';
 import { Student } from '../../../models/Student/Student';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginPage {
   password: string
   student: Student
 
-  constructor(public apiProvider: ApiProvider){}
+  constructor(public apiProvider: ApiProvider,
+              private router: Router){}
   
   getLogin(){
     if(this.login == null || this.password == null){
@@ -21,6 +23,7 @@ export class LoginPage {
     }else{
       this.student = new Student()
       this.student = this.apiProvider.getLogin(this.login,this.password)
+      this.router.navigate(['/home'],  { state: { student: this.student} })
     }
   }
 }
