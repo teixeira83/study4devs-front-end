@@ -37,5 +37,6 @@ export class ApiProvider {
       name: name,
       password: password,
       email: email})
+      .subscribe()
     }
 }
