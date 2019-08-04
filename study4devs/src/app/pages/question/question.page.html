@@ -7,3 +7,11 @@
 <ion-content>
 
 </ion-content>
+
+<ion-grid>
+  <ion-row *ngFor="let q of questions">
+    <div>
+      <h4>{{q.title}}</h4>
+    </div>
+  </ion-row>
+</ion-grid>

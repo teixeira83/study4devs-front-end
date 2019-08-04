@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Student } from 'src/models/Student/Student';
+import { Observable } from 'rxjs';
+import { Question } from 'src/models/Question/Question';
 
 @Injectable()
 export class ApiProvider {
@@ -45,5 +47,19 @@ export class ApiProvider {
 
     isAdmin(s: Student){
       return s.admin
+    }
+
+    findAllQuestions(){
+      const student = [];
+      
+      this.http.get( this.URL_API + '/question/all-questions')
+      .pipe(map ( responseData => {
+              for(const k in responseData){
+                student.push(responseData[k])
+              }
+            })
+            )
+            .subscribe()
+    return student;
     }
 }

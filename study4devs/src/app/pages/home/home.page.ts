@@ -18,7 +18,7 @@ export class HomePage implements OnInit {
               private menuController: MenuController,
               private apiProvider: ApiProvider) {
     this.student = new Student()
-    this.student = this.router.getCurrentNavigation().extras.state.student
+    this.student = this.router.getCurrentNavigation().extras.state.student;
    }
 
   ngOnInit() {
@@ -41,6 +41,6 @@ export class HomePage implements OnInit {
   }
 
   openPage(page){
-    this.router.navigate([`/${page}`])
+    this.router.navigate([`/${page}`], { state: { student: this.student} })
   }
 }

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Question } from 'src/models/Question/Question';
+import { ApiProvider } from 'src/providers/api/api';
+import { Router } from '@angular/router';
+import { Student } from 'src/models/Student/Student';
 
 @Component({
   selector: 'app-question',
@@ -7,9 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionPage implements OnInit {
 
-  constructor() { }
+  student: Student;
+  questions: Question[];
+
+  constructor(private apiProvider: ApiProvider,
+              private router: Router) { 
+                this.student = this.router.getCurrentNavigation().extras.state.student;
+              }
 
   ngOnInit() {
+    this.questions = this.apiProvider.findAllQuestions();
   }
 
 }
