@@ -32,15 +32,19 @@ export class HomePage implements OnInit {
       ]
     }else{
       this.pages = [
-        {title: 'Profile', page:'home', icon:'home'},
-        {title: 'Questions', page:'question', icon:'paper'},
-        {title: 'Ranking', page:'HomePage', icon:'home'}
+        {title: 'Student Dashboard', page:'home', icon:'stats'},
+        {title: 'Questões', page:'question', icon:'paper'},
+        {title: 'Ranking', page:'HomePage', icon:'home'},
+        {title: 'Interesses', page:'interest', icon:'pulse'}
       ] 
     }
     this.menuController.toggle()
   }
 
   openPage(page){
+    if(page == 'home'){
+      this.menuController.toggle()
+    }
     this.router.navigate([`/${page}`], { state: { student: this.student} })
   }
 }

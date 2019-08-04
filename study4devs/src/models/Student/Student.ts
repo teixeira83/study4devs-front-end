@@ -8,4 +8,5 @@ export class Student{
     admin: boolean
     rightAnswers: Number
     questionsAnswered: Number
+    category: []
 }

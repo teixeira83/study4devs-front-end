@@ -40,6 +40,7 @@ export class ApiProvider {
               student.admin = responseData['admin']
               student.questionsAnswered = responseData['questionsAnswered']
               student.rightAnswers = responseData['rightAnswers']
+              student.category = responseData['category']
               loading.dismiss()
               this.router.navigate(['/home'],  { state: { student: student} }) 
             }),
@@ -90,5 +91,20 @@ export class ApiProvider {
             )
             .subscribe()
     return student;
+    }
+
+    getAllInterest(){
+      var interest = [];
+      this.http.get(this.URL_API + '/question/categorys')
+      .pipe(map ( responseData => {
+          for(const k in responseData){
+            if(responseData.hasOwnProperty(k)){
+              interest.push(responseData[k])
+            }
+          }
+        })
+      )
+      .subscribe()
+      return interest
     }
 }

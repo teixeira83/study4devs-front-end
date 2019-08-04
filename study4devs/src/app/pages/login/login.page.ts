@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiProvider } from '../../../providers/api/api';
 import { Student } from '../../../models/Student/Student';
-import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +15,17 @@ export class LoginPage {
   student: Student
 
   constructor(public apiProvider: ApiProvider,
-              private router: Router){}
+              private alertController: AlertController){}
   
-  getLogin(){
+  async getLogin(){
     if(this.login == null || this.password == null){
-      alert('TA EM BRANCO')
+      const alert = await this.alertController.create({
+        header: 'Erro no Login!',
+        subHeader: 'Algum campo está em branco.',
+        message: 'Favor verificar e tentar novamente.',
+        buttons: ['OK']
+      })
+      await alert.present();
     }else{
       this.apiProvider.getLogin(this.login,this.password)
       }
