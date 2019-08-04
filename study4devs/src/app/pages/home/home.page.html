@@ -1,9 +1,26 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>home</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <ion-button (click)="toggleMenu()">
+        <ion-icon slot="icon-only" name="menu">
+        </ion-icon>
+      </ion-button>
+      <ion-title>Home</ion-title>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
-</ion-content>
+<ion-menu side="start" menuId="first" contentId="homeMenu">
+    <ion-toolbar color="primary">
+        <ion-title>Start Menu</ion-title>
+      </ion-toolbar>
+    <ion-content>
+      <ion-list>
+        <ion-button *ngFor="let p of pages" (click)="openPage(p.page)">
+          <ion-icon item-start [name]="p.icon"></ion-icon>
+          {{p.title}}
+        </ion-button>
+      </ion-list>
+    </ion-content>
+  </ion-menu>

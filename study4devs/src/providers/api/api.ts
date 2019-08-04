@@ -24,6 +24,7 @@ export class ApiProvider {
             student.name = responseData['name']
             student.points = responseData['points']
             student.authToken = responseData['password']
+            student.admin = responseData['admin']
           })
         )
         .subscribe()
@@ -38,5 +39,9 @@ export class ApiProvider {
       password: password,
       email: email})
       .subscribe()
+    }
+
+    isAdmin(s: Student){
+      return s.admin
     }
 }

@@ -5,4 +5,5 @@ export class Student{
     login: String
     authToken: String
     points: Number
+    admin: boolean
 }
