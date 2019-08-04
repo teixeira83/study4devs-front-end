@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule' },
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'admin', loadChildren: './pages/admin/admin.module#AdminPageModule' },
+  { path: 'question', loadChildren: './pages/question/question.module#QuestionPageModule' },
 ];
 
 @NgModule({

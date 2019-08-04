@@ -22,26 +22,25 @@ export class HomePage implements OnInit {
    }
 
   ngOnInit() {
-    console.log(this.student)
   }
 
   toggleMenu(){
     if( this.apiProvider.isAdmin(this.student) ){
       this.pages = [
-        {title: 'Admin Page 1', page:'HomePage', icon:'home'},
-        {title: 'Admin Page 2', page:'HomePage', icon:'home'}      
+        {title: 'Admin Dashboard', page:'admin', icon:'stats'},
+        {title: 'Add Question', page:'admin', icon:'paper'}      
       ]
     }else{
       this.pages = [
-        {title: 'User Page 1', page:'HomePage', icon:'home'},
-        {title: 'User Page 2', page:'HomePage', icon:'home'}
+        {title: 'Profile', page:'admin', icon:'home'},
+        {title: 'Questions', page:'question', icon:'paper'},
+        {title: 'Ranking', page:'HomePage', icon:'home'}
       ] 
     }
     this.menuController.toggle()
   }
 
   openPage(page){
-    this.router.navigate(['/admin'])
-    console.log(page)
+    this.router.navigate([`/${page}`])
   }
 }

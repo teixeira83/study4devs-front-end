@@ -25,6 +25,8 @@ export class ApiProvider {
             student.points = responseData['points']
             student.authToken = responseData['password']
             student.admin = responseData['admin']
+            student.questionsAnswered = responseData['questionsAnswered']
+            student.rightAnswers = responseData['rightAnswers']
           })
         )
         .subscribe()

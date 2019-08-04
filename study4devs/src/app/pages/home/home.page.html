@@ -5,7 +5,14 @@
         <ion-icon slot="icon-only" name="menu">
         </ion-icon>
       </ion-button>
-      <ion-title>Home</ion-title>
+      <div *ngIf="student.admin == true; then thenBlock else elseBlock">
+      </div>
+      <ng-template #thenBlock>
+        <ion-title>Admin Dashboard</ion-title>
+      </ng-template>
+      <ng-template #elseBlock>
+          <ion-title>Student Dashboard</ion-title>
+        </ng-template>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -13,14 +20,66 @@
 
 <ion-menu side="start" menuId="first" contentId="homeMenu">
     <ion-toolbar color="primary">
-        <ion-title>Start Menu</ion-title>
+        <ion-title>Menu</ion-title>
       </ion-toolbar>
     <ion-content>
       <ion-list>
-        <ion-button *ngFor="let p of pages" (click)="openPage(p.page)">
-          <ion-icon item-start [name]="p.icon"></ion-icon>
-          {{p.title}}
-        </ion-button>
+        <ion-row *ngFor="let p of pages">
+          <ion-button (click)="openPage(p.page)">
+            <ion-icon item-start [name]="p.icon"></ion-icon>
+            {{p.title}}
+          </ion-button>
+        </ion-row>
       </ion-list>
     </ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+        <ion-row align-items-center>
+          <ion-col>
+            {{student.name}}
+          </ion-col>
+          <ion-col>
+            <ion-button full clear icon-left (click)="logout()">
+              <ion-icon name="log-out"></ion-icon>
+              Logout</ion-button>>
+          </ion-col>
+        </ion-row>
+      </ion-toolbar>
+    </ion-footer>
   </ion-menu>
+
+<ion-grid>
+  <div class="container">
+    <ion-row class="ion-justify-content-start">
+      <ion-col size="6">
+        <div>
+          <p>Questões Respondidas</p>
+          <p>{{student.questionsAnswered}}</p>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <div>
+            <p>Respostas Certas</p>
+            <p>{{student.rightAnswers}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="3">
+        <div>
+          <p>Pontos</p>
+          <p>{{student.points}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+        <ion-col size="3">
+          <div>
+            <p>Ranking</p>
+            <p>{{student.points}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+  </div>
+</ion-grid>

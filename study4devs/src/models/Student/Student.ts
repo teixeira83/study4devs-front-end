@@ -6,4 +6,6 @@ export class Student{
     authToken: String
     points: Number
     admin: boolean
+    rightAnswers: Number
+    questionsAnswered: Number
 }
