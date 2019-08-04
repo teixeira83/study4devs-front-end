@@ -21,9 +21,7 @@ export class LoginPage {
     if(this.login == null || this.password == null){
       alert('TA EM BRANCO')
     }else{
-      this.student = new Student()
-      this.student = this.apiProvider.getLogin(this.login,this.password)
-      this.router.navigate(['/home'],  { state: { student: this.student} })
+      this.apiProvider.getLogin(this.login,this.password)
+      }
     }
-  }
 }

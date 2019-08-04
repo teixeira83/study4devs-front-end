@@ -32,7 +32,7 @@ export class HomePage implements OnInit {
       ]
     }else{
       this.pages = [
-        {title: 'Profile', page:'admin', icon:'home'},
+        {title: 'Profile', page:'home', icon:'home'},
         {title: 'Questions', page:'question', icon:'paper'},
         {title: 'Ranking', page:'HomePage', icon:'home'}
       ] 
