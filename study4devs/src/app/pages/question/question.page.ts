@@ -20,7 +20,11 @@ export class QuestionPage implements OnInit {
               }
 
   ngOnInit() {
-    this.questions = this.apiProvider.findAllQuestions();
+  }
+
+  findQuestionsWithCategory(){
+    this.apiProvider.getQuestionsWithCategory(this.student.id)
+    
   }
 
 }

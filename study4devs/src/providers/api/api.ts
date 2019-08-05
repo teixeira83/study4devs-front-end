@@ -37,11 +37,9 @@ export class ApiProvider {
               student.login = responseData['login']
               student.name = responseData['name']
               student.points = responseData['points']
-              student.authToken = responseData['password']
               student.admin = responseData['admin']
               student.questionsAnswered = responseData['questionsAnswered']
               student.rightAnswers = responseData['rightAnswers']
-              student.category = responseData['category']
               loading.dismiss()
               this.router.navigate(['/home'],  { state: { student: student} }) 
             }),
@@ -115,9 +113,16 @@ export class ApiProvider {
 
     addNewInterest(categorys, id){
       let params = new HttpParams()
-      .set('studentId', id)
+        .set('studentId', id)
       this.http.post(`${this.URL_API}/student/change-categorys`, categorys, {params:params})
       .subscribe()
     }
 
+    getQuestionsWithCategory(id){
+      let params = new HttpParams()
+        .set('studentId', id)
+      this.http.get(`${this.URL_API}/question/one-question`, {params:params})
+      .subscribe()
+
+    }
 }
