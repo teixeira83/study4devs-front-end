@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpParams} from '@angular/common/http';
+import { map, catchError, delay } from 'rxjs/operators';
 import { Student } from 'src/models/Student/Student';
-import { Observable, empty } from 'rxjs';
-import { Question } from 'src/models/Question/Question';
+import { empty } from 'rxjs';
 import { Router } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable()
 export class ApiProvider {
  
-  URL_API : String = "http://localhost:8080"
+  URL_API : String = environment.API
 
   constructor(public http: HttpClient,
               private router: Router,
@@ -107,4 +108,16 @@ export class ApiProvider {
       .subscribe()
       return interest
     }
+
+    getInterest(){
+      return this.http.get<[]>(this.URL_API + '/question/categorys')
+    }
+
+    addNewInterest(categorys, id){
+      let params = new HttpParams()
+      .set('studentId', id)
+      this.http.post(`${this.URL_API}/student/change-categorys`, categorys, {params:params})
+      .subscribe()
+    }
+
 }

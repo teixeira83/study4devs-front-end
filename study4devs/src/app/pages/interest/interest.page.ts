@@ -11,7 +11,7 @@ import { Student } from 'src/models/Student/Student';
 export class InterestPage implements OnInit {
   
   student: Student;
-  interest;
+  interest = [];
   displayInterest = [];
 
   constructor(private apiProvider: ApiProvider,
@@ -21,13 +21,33 @@ export class InterestPage implements OnInit {
               }
 
   ngOnInit() {
-    //this.addInterest()  
+  
+    this.apiProvider.getInterest().subscribe(response => {
+      for( let i = 0; i < response.length; i++ ){
+        if(this.student.category.indexOf(response[i]) > -1){
+          this.displayInterest.push({
+             category: response[i],
+             isChecked: true 
+            })
+        }else{
+          this.displayInterest.push({
+            category: response[i],
+            isChecked: false 
+           })
+        }
+        
+      }
+    })
   }
 
-  async addInterest(){
-    this.interest = this.apiProvider.getAllInterest()
-    console.log(this.interest)
-    console.log(this.interest.length)
+  newInterest(){
+    var categorys = []
+    for(let i = 0; i < this.displayInterest.length; i++){
+      if(this.displayInterest[i].isChecked == true){
+        categorys.push(this.displayInterest[i].category)
+      }
+    }
+    this.apiProvider.addNewInterest(categorys, this.student.id)
   }
-
 }
+

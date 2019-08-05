@@ -5,11 +5,12 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-list>
-    <ion-item *ngFor="let entry of form">
-      <ion-label>{{entry.val}}</ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+  <ion-list>
+    <ion-item *ngFor="let i of displayInterest">
+      <ion-label>{{i.category}}</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="i.isChecked"></ion-checkbox>
     </ion-item>
-  </ion-list> -->
-  <ion-button (click)="addInterest()"></ion-button>
+  </ion-list>
+
+  <ion-button shape="round" fill="outline" (click)="newInterest()" >Salvar novos interesses</ion-button>
 </ion-content>
