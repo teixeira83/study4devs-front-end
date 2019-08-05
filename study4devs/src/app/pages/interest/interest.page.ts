@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiProvider } from 'src/providers/api/api';
 import { Router } from '@angular/router';
 import { Student } from 'src/models/Student/Student';
+import { LoadingController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-interest',
@@ -15,7 +16,9 @@ export class InterestPage implements OnInit {
   displayInterest = [];
 
   constructor(private apiProvider: ApiProvider,
-              private router: Router) { 
+              private router: Router,
+              private loadingController: LoadingController,
+              private alertController: AlertController) { 
                 this.student = new Student();
                 this.student = this.router.getCurrentNavigation().extras.state.student;
               }
@@ -40,7 +43,11 @@ export class InterestPage implements OnInit {
     })
   }
 
-  newInterest(){
+  async newInterest(){
+    const loading = await this.loadingController.create({
+      message: "Salvando seus novos interesses..."
+    });
+    await loading.present();
     var categorys = []
     for(let i = 0; i < this.displayInterest.length; i++){
       if(this.displayInterest[i].isChecked == true){
@@ -48,6 +55,16 @@ export class InterestPage implements OnInit {
       }
     }
     this.apiProvider.addNewInterest(categorys, this.student.id)
+    await loading.dismiss();
+    const alert = await this.alertController.create({
+      header: "Sucesso!!",
+      subHeader: "Interesses Salvos",
+      message: "Seus novos interesses foram salvos com sucesso. Não perca tempo. Vá para a área de questões e aprenda tudo sobre o que escolheu.",
+      buttons: ['OK']
+    });
+    await alert.present();
   }
+
+  
 }
 
