@@ -131,4 +131,15 @@ export class ApiProvider {
       return this.http.get(`${this.URL_API}/student/category`, {params:params})
     }
     
-}
+    sendAnswer(studentId,questionId,answer){
+
+      answer--;
+      var params = new HttpParams()
+      .set('studentId', studentId)
+      .set('questionId', questionId)
+      .set('answer', answer);   
+      this.http.post(`${this.URL_API}/student/answer`, params)
+      .subscribe(res => console.log(res))
+
+    }
+} 

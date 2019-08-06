@@ -51,6 +51,7 @@ export class QuestionPage implements OnInit {
     this.apiProvider.getQuestionsWithCategory(this.student.id)
       .subscribe(res => {
         console.log(res)
+        this.question.id = res['id']
         this.question.title = res['title']
         this.question.firstAnswer = res['firstAnswer']
         this.question.secondAnswer = res['secondAnswer']
@@ -80,5 +81,6 @@ export class QuestionPage implements OnInit {
       }
     }
     
+    this.apiProvider.sendAnswer(this.student.id,this.question.id,answer);
   }
 }
