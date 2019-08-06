@@ -12,7 +12,7 @@ import { LoadingController, AlertController } from '@ionic/angular';
 export class InterestPage implements OnInit {
   
   student: Student;
-  interest = [];
+  interest
   displayInterest = [];
 
   constructor(private apiProvider: ApiProvider,
@@ -65,6 +65,5 @@ export class InterestPage implements OnInit {
     await alert.present();
   }
 
-  
 }
 

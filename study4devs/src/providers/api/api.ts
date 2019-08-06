@@ -40,6 +40,7 @@ export class ApiProvider {
               student.admin = responseData['admin']
               student.questionsAnswered = responseData['questionsAnswered']
               student.rightAnswers = responseData['rightAnswers']
+              student.category = responseData['category']
               loading.dismiss()
               this.router.navigate(['/home'],  { state: { student: student} }) 
             }),
@@ -121,8 +122,13 @@ export class ApiProvider {
     getQuestionsWithCategory(id){
       let params = new HttpParams()
         .set('studentId', id)
-      this.http.get(`${this.URL_API}/question/one-question`, {params:params})
-      .subscribe()
-
+      return this.http.get(`${this.URL_API}/question/one-question`, {params:params})
     }
+
+    studentInterest(id){
+      var params = new HttpParams()
+        .set('studentId', id);
+      return this.http.get(`${this.URL_API}/student/category`, {params:params})
+    }
+    
 }

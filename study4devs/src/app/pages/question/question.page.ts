@@ -12,7 +12,29 @@ import { Student } from 'src/models/Student/Student';
 export class QuestionPage implements OnInit {
 
   student: Student;
-  questions: Question[];
+  question: Question;
+  answers = [
+    {
+      question: '',
+      answer: 1,
+      isChecked: false
+    },
+    {
+      question: '',
+      answer: 2,
+      isChecked: false
+    },
+    {
+      question: '',
+      answer: 3,
+      isChecked: false
+    },
+    {
+      question: '',
+      answer: 4,
+      isChecked: false
+    }
+  ]
 
   constructor(private apiProvider: ApiProvider,
               private router: Router) { 
@@ -20,11 +42,43 @@ export class QuestionPage implements OnInit {
               }
 
   ngOnInit() {
+    this.question = new Question();
+    console.log(this.answers)
   }
 
   findQuestionsWithCategory(){
+
     this.apiProvider.getQuestionsWithCategory(this.student.id)
-    
+      .subscribe(res => {
+        console.log(res)
+        this.question.title = res['title']
+        this.question.firstAnswer = res['firstAnswer']
+        this.question.secondAnswer = res['secondAnswer']
+        this.question.thirdAnswer = res['thirdAnswer']
+        this.question.fourthAnswer = res['fourthAnswer']
+        this.question.category = res['category']
+
+        this.answers[0].question = res['firstAnswer']
+        this.answers[1].question = res['secondAnswer']
+        this.answers[2].question = res['thirdAnswer']
+        this.answers[3].question = res['fourthAnswer']
+      })
   }
 
+  checkControl(id){
+    for(let i = 0; i < 4; i++){
+      this.answers[i].isChecked = false
+    }
+  }
+
+  sendAnswer(){
+    var answer;
+
+    for(let i = 0; i < 4; i++){
+      if(this.answers[i].isChecked){
+        answer = i + 1;
+      }
+    }
+    
+  }
 }

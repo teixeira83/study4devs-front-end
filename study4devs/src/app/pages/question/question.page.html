@@ -1,1 +1,21 @@
 <ion-button color="success" (click)="findQuestionsWithCategory()">Responder Questão Aleatória</ion-button>
+
+
+<ion-grid>
+    <ion-row>
+        <div>
+                <ion-text>{{question.title}}</ion-text>
+        </div>
+    </ion-row>
+    <ion-row *ngFor="let a of answers">
+            <div>
+                <ion-item>
+                    <ion-label>{{a.question}}</ion-label>
+                    <ion-checkbox value="{{a.answer}}" slot="start" [(ngModel)]="a.isChecked" (click)="checkControl(id.value)" #id></ion-checkbox>
+                </ion-item>
+            </div>
+    </ion-row>
+
+    <ion-button expand="block" fill="outline" (click)="sendAnswer()">Responder!</ion-button>
+</ion-grid>
+
