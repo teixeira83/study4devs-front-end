@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiProvider } from 'src/providers/api/api';
 import { Router } from '@angular/router';
 import { Student } from 'src/models/Student/Student';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-interest',
@@ -18,13 +18,14 @@ export class InterestPage implements OnInit {
   constructor(private apiProvider: ApiProvider,
               private router: Router,
               private loadingController: LoadingController,
-              private alertController: AlertController) { 
+              private alertController: AlertController,
+              private menuController: MenuController) { 
                 this.student = new Student();
                 this.student = this.router.getCurrentNavigation().extras.state.student;
               }
 
   ngOnInit() {
-  
+    this.menuController.toggle();
     this.apiProvider.getInterest().subscribe(response => {
       for( let i = 0; i < response.length; i++ ){
         if(this.student.category.indexOf(response[i]) > -1){

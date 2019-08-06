@@ -3,6 +3,7 @@ import { Question } from 'src/models/Question/Question';
 import { ApiProvider } from 'src/providers/api/api';
 import { Router } from '@angular/router';
 import { Student } from 'src/models/Student/Student';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-question',
@@ -37,17 +38,21 @@ export class QuestionPage implements OnInit {
   ]
 
   constructor(private apiProvider: ApiProvider,
-              private router: Router) { 
+              private router: Router,
+              private menuController: MenuController) { 
                 this.student = this.router.getCurrentNavigation().extras.state.student;
               }
 
   ngOnInit() {
+    this.menuController.toggle();
     this.question = new Question();
     console.log(this.answers)
   }
 
   findQuestionsWithCategory(){
-
+    for(let i = 0; i < 4; i++){
+      this.answers[i].isChecked = false
+    }
     this.apiProvider.getQuestionsWithCategory(this.student.id)
       .subscribe(res => {
         console.log(res)
