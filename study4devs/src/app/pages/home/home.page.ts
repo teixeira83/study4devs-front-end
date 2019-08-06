@@ -19,9 +19,18 @@ export class HomePage implements OnInit {
               private apiProvider: ApiProvider) {
     this.student = new Student()
     this.student = this.router.getCurrentNavigation().extras.state.student;
+    console.log("TESTE")
    }
 
-  ngOnInit() {
+  ngOnInit() {   
+    console.log("TESTE")
+    this.apiProvider.refreshStudent(this.student.id)
+    .subscribe( res => {
+      this.student.questionsAnswered = res['questionsAnswered']
+      this.student.rightAnswers = res['rightAnswers']
+      this.student.points = res['points']
+      console.log(res)
+    })
   }
 
   toggleMenu(){
@@ -46,5 +55,14 @@ export class HomePage implements OnInit {
       this.menuController.toggle()
     }
     this.router.navigate([`/${page}`], { state: { student: this.student} })
+  }
+
+  refreshStudent(){
+     this.apiProvider.refreshStudent(this.student.id)
+      .subscribe(res => {
+        this.student.questionsAnswered = res['questionsAnswered']
+        this.student.rightAnswers = res['rightAnswers']
+        this.student.points = res['points']
+      })  
   }
 }

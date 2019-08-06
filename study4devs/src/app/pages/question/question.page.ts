@@ -46,7 +46,6 @@ export class QuestionPage implements OnInit {
   ngOnInit() {
     this.menuController.toggle();
     this.question = new Question();
-    console.log(this.answers)
   }
 
   findQuestionsWithCategory(){
@@ -88,4 +87,13 @@ export class QuestionPage implements OnInit {
     
     this.apiProvider.sendAnswer(this.student.id,this.question.id,answer);
   }
+
+  refreshStudent(){
+    // this.apiProvider.refreshStudent(this.student.id)
+    // .subscribe(res => {
+
+    // }
+    // )  
+  }
+
 }

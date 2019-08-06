@@ -142,4 +142,9 @@ export class ApiProvider {
       .subscribe(res => console.log(res))
 
     }
+
+    refreshStudent(id){
+      var param = new HttpParams().set('studentId', id)
+      return this.http.post(`${this.URL_API}/student/refresh`, param)
+    }
 } 
