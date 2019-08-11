@@ -1,22 +1,31 @@
 <ion-button color="success" (click)="findQuestionsWithCategory()">Responder Questão Aleatória</ion-button>
 
+<div *ngIf="question.id == null; then thenBlock else elseBlock">
+</div>
 
-<ion-grid>
-    <ion-row>
-        <div>
-                <ion-text>{{question.title}}</ion-text>
-        </div>
-    </ion-row>
-    <ion-row *ngFor="let a of answers">
+<ng-template #thenBlock>
+    <ion-text style="margin-bottom: 50%;">
+        <h1>Clique no botão para sortear uma questão aleatória dentro da sua área de interesse.</h1>
+    </ion-text>
+</ng-template>
+
+<ng-template #elseBlock>
+    <ion-grid>
+        <ion-row>
             <div>
-                <ion-item>
-                    <ion-label>{{a.question}}</ion-label>
-                    <ion-checkbox value="{{a.answer}}" slot="start" [(ngModel)]="a.isChecked" (click)="checkControl(id.value)" #id></ion-checkbox>
-                </ion-item>
+                    <ion-text>{{question.title}}</ion-text>
             </div>
-    </ion-row>
-
-    <ion-button expand="block" fill="outline" (click)="sendAnswer()">Responder!</ion-button>
-    <ion-button expand="block" fill="outline" color="dark" routerLink="/home">Voltar</ion-button>
-</ion-grid>
-
+        </ion-row>
+        <ion-row *ngFor="let a of answers">
+                <div>
+                    <ion-item>
+                        <ion-label>{{a.question}}</ion-label>
+                        <ion-checkbox value="{{a.answer}}" slot="start" [(ngModel)]="a.isChecked" (click)="checkControl(id.value)" #id></ion-checkbox>
+                    </ion-item>
+                </div>
+        </ion-row>
+    
+        <ion-button expand="block" fill="outline" (click)="sendAnswer()">Responder!</ion-button>
+        <ion-button expand="block" fill="outline" color="dark" routerLink="/home">Voltar</ion-button>
+    </ion-grid>
+</ng-template>
