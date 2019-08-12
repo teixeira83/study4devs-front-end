@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams} from '@angular/common/http';
 import { map, catchError, delay } from 'rxjs/operators';
 import { Student } from 'src/models/Student/Student';
-import { empty } from 'rxjs';
+import { empty, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
@@ -115,8 +115,7 @@ export class ApiProvider {
     addNewInterest(categorys, id){
       let params = new HttpParams()
         .set('studentId', id)
-      this.http.post(`${this.URL_API}/student/change-categorys`, categorys, {params:params})
-      .subscribe()
+      return this.http.post(`${this.URL_API}/student/change-categorys`, categorys, {params:params})
     }
 
     getQuestionsWithCategory(id){
@@ -131,7 +130,12 @@ export class ApiProvider {
       return this.http.get(`${this.URL_API}/student/category`, {params:params})
     }
     
-    sendAnswer(studentId,questionId,answer){
+    async sendAnswer(studentId,questionId,answer){
+
+      const loading = await this.loadingController.create({
+        message : 'Verificando sua resposta...'
+      })
+      await loading.present();
 
       answer--;
       var params = new HttpParams()
@@ -139,8 +143,45 @@ export class ApiProvider {
       .set('questionId', questionId)
       .set('answer', answer);   
       this.http.post(`${this.URL_API}/student/answer`, params)
-      .subscribe(res => console.log(res))
-
+       .subscribe( res => {
+         console.log(res)
+       },
+      async erro => {
+         if(erro.status == 200){
+           const alert = await this.alertController.create({
+             header: 'Parabéns',
+             subHeader: 'Sua Resposta está correta...',
+             message: 'Aperte em Ok e continue jogando.',
+             buttons: [
+               {
+                text: 'OK',
+                handler: data => {
+                  this.router.navigate(['/home'])
+                }
+               }
+            ]
+            });
+            loading.dismiss();
+            await alert.present();
+          }
+          if(erro.status == 417){  
+            const alert = await this.alertController.create({
+            header: 'Não foi dessa vez',
+            subHeader: 'Sua Resposta está errada...',
+            message: 'Aperte em Ok e continue tentando.',
+            buttons: [
+              {
+                text: 'OK',
+                handler: data => {
+                  this.router.navigate(['/home'])
+                }
+              }
+            ]
+           });
+           loading.dismiss();
+           await alert.present();
+         }
+       })
     }
 
     refreshStudent(id){

@@ -84,16 +84,7 @@ export class QuestionPage implements OnInit {
         answer = i + 1;
       }
     }
-    
-    this.apiProvider.sendAnswer(this.student.id,this.question.id,answer);
-  }
-
-  refreshStudent(){
-    // this.apiProvider.refreshStudent(this.student.id)
-    // .subscribe(res => {
-
-    // }
-    // )  
+    let answerStatus = this.apiProvider.sendAnswer(this.student.id,this.question.id,answer)
   }
 
 }

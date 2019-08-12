@@ -26,21 +26,25 @@ export class InterestPage implements OnInit {
 
   ngOnInit() {
     this.menuController.toggle();
-    this.apiProvider.getInterest().subscribe(response => {
-      for( let i = 0; i < response.length; i++ ){
-        if(this.student.category.indexOf(response[i]) > -1){
-          this.displayInterest.push({
-             category: response[i],
-             isChecked: true 
-            })
-        }else{
-          this.displayInterest.push({
-            category: response[i],
-            isChecked: false 
-           })
-        }
-        
-      }
+    this.apiProvider.refreshStudent(this.student.id)
+      .subscribe(response => {
+        this.student.category = response['category']
+        console.log(this.student.category)
+        this.apiProvider.getInterest().subscribe(response => {
+          for( let i = 0; i < response.length; i++ ){
+            if(this.student.category.indexOf(response[i]) > -1){
+              this.displayInterest.push({
+                 category: response[i],
+                 isChecked: true 
+                })
+            }else{
+              this.displayInterest.push({
+                category: response[i],
+                isChecked: false 
+               })
+            }
+          }
+        })
     })
   }
 
@@ -56,12 +60,22 @@ export class InterestPage implements OnInit {
       }
     }
     this.apiProvider.addNewInterest(categorys, this.student.id)
+      .subscribe(res => {
+        this.student.category = res['category']
+      })
     await loading.dismiss();
     const alert = await this.alertController.create({
       header: "Sucesso!!",
       subHeader: "Interesses Salvos",
       message: "Seus novos interesses foram salvos com sucesso. Não perca tempo. Vá para a área de questões e aprenda tudo sobre o que escolheu.",
-      buttons: ['OK']
+      buttons: [
+        {
+          text: 'OK',
+          handler: data => {
+            this.router.navigate(['/home'])
+          }
+        }
+      ]
     });
     await alert.present();
   }
