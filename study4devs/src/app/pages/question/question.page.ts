@@ -47,10 +47,14 @@ export class QuestionPage implements OnInit {
   ngOnInit() {
     this.menuController.toggle();
     this.question = new Question();
+    this.apiProvider.refreshStudent(this.student.id)
+    .subscribe( res => {
+      this.student.category = res['category']
+    })
   }
 
   async findQuestionsWithCategory(){
-    
+   
     if(this.student.category.length == 0) {
       const alert = await this.alertController.create({
         header: "Oops...",
@@ -60,13 +64,13 @@ export class QuestionPage implements OnInit {
           {
             text: 'OK',
             handler: data => {
-              this.router.navigate(['/interest'])
+              this.router.navigate(['/home'])
             }
           }
         ]
       })
       await alert.present();
-    }
+    }else{
     for(let i = 0; i < 4; i++){
       this.answers[i].isChecked = false
     }
@@ -87,6 +91,7 @@ export class QuestionPage implements OnInit {
         this.answers[3].question = res['fourthAnswer']
       })
   }
+}
 
   checkControl(id){
     for(let i = 0; i < 4; i++){
