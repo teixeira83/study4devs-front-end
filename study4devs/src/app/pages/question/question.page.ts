@@ -3,7 +3,7 @@ import { Question } from 'src/models/Question/Question';
 import { ApiProvider } from 'src/providers/api/api';
 import { Router } from '@angular/router';
 import { Student } from 'src/models/Student/Student';
-import { MenuController } from '@ionic/angular';
+import { MenuController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-question',
@@ -39,7 +39,8 @@ export class QuestionPage implements OnInit {
 
   constructor(private apiProvider: ApiProvider,
               private router: Router,
-              private menuController: MenuController) { 
+              private menuController: MenuController,
+              private alertController: AlertController) { 
                 this.student = this.router.getCurrentNavigation().extras.state.student;
               }
 
@@ -48,7 +49,24 @@ export class QuestionPage implements OnInit {
     this.question = new Question();
   }
 
-  findQuestionsWithCategory(){
+  async findQuestionsWithCategory(){
+    
+    if(this.student.category.length == 0) {
+      const alert = await this.alertController.create({
+        header: "Oops...",
+        subHeader: "Você ainda não escolheu nenhum interesse!",
+        message: "Para sortear uma questão você precisa escolher pelo menos uma categoria de interesse.",
+        buttons: [
+          {
+            text: 'OK',
+            handler: data => {
+              this.router.navigate(['/interest'])
+            }
+          }
+        ]
+      })
+      await alert.present();
+    }
     for(let i = 0; i < 4; i++){
       this.answers[i].isChecked = false
     }
