@@ -89,6 +89,7 @@ export class QuestionPage implements OnInit {
         this.answers[1].question = res['secondAnswer']
         this.answers[2].question = res['thirdAnswer']
         this.answers[3].question = res['fourthAnswer']
+        console.log(res['category'])
       })
   }
 }
