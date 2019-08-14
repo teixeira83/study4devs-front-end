@@ -65,4 +65,9 @@ export class HomePage implements OnInit {
         this.student.points = res['points']
       })  
   }
+
+  logout(){
+    this.menuController.toggle();
+    this.router.navigate(['/login'])
+  }
 }

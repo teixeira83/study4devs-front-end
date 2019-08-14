@@ -8,7 +8,7 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage{
 
   login: string
   password: string
@@ -30,4 +30,5 @@ export class LoginPage {
       this.apiProvider.getLogin(this.login,this.password)
       }
     }
+    
 }

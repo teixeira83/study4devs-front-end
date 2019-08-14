@@ -90,6 +90,24 @@ export class QuestionPage implements OnInit {
         this.answers[2].question = res['thirdAnswer']
         this.answers[3].question = res['fourthAnswer']
         console.log(res['category'])
+      },
+      async error => {
+        if(error.status == 400){
+          const alert = await this.alertController.create({
+            header: "Oops...",
+            subHeader: "Você já respondeu todas as questões dos interesses selecionados.",
+            message: "Escolha novos interesses.",
+            buttons: [
+              {
+                text: "OK",
+                handler: data => {
+                  this.router.navigate(['home'])
+                }
+              }
+            ]
+          });
+          await alert.present();
+        }
       })
   }
 }
